@@ -1,58 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from '../features/counter/Counter';
-import './App.css';
 
-function App() {
+import './App.css';
+import { Inventory } from '../features/inventory/Inventory';
+import { CurrencyFilter } from '../features/currencyFilter/CurrencyFilter';
+import { Cart } from '../features/cart/Cart';
+import { SearchTerm } from '../features/searchTerm/SearchTerm';
+
+
+export default function App(props) {
+  const { state, dispatch } = props;
+  let inventory = state.inventory;
+  
+  if (state.searchTerm !== "") {
+    inventory = state.inventory.filter((i) =>
+      i.name.toLowerCase().includes(state.searchTerm.toLowerCase())
+    );
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <div>
+          <SearchTerm searchTerm={state.searchTerm} dispatch={dispatch} />
+          <CurrencyFilter
+            currencyFilter={state.currencyFilter}
+            dispatch={dispatch}
+          />
+          <Inventory
+            inventory={inventory}
+            currencyFilter={state.currencyFilter}
+            dispatch={dispatch}
+          />
+          <Cart
+            cart={state.cart}
+            currencyFilter={state.currencyFilter}
+            dispatch={dispatch}
+          />
+      </div>
     </div>
   );
 }
-
-export default App;

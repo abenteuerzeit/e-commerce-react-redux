@@ -7,7 +7,7 @@ import { Cart } from '../features/cart/Cart';
 import { SearchTerm } from '../features/searchTerm/SearchTerm';
 
 
-export default function App(props) {
+export function App(props) {
   const { state, dispatch } = props;
   let inventory = state.inventory;
   

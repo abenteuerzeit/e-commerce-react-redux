@@ -1,31 +1,21 @@
-import React from 'react';
-
-import { currenciesData } from '../../../data.js';
-import { setCurrency } from './currencyFilterSlice.js';
-
-export const CurrencyFilter = ({ currencyFilter, dispatch }) => {
-  const onClickHandler = (currency) => {
-    dispatch(setCurrency(currency));
-  };
-
-  return (
-    <div id="currency-filters-container">
-      <h3>Choose a currency</h3>
-      {currenciesData.map(createCurrencyButton)}
-    </div>
-  );
-
-  function createCurrencyButton(currency) {
-    return (
-      <button
-        className={`currency-button ${
-          currencyFilter === currency && 'selected'
-        }`}
-        key={currency}
-        onClick={() => onClickHandler(currency)}
-      >
-        {currency}
-      </button>
-    );
+const initialCurrencyFilter = 'USD';
+export const currencyFilterReducer = (
+  currencyFilter = initialCurrencyFilter,
+  action
+) => {
+  switch (action.type) {
+    case 'currencyFilter/setCurrency': {
+      return action.payload;
+    }
+    default: {
+      return currencyFilter;
+    }
   }
+};
+
+export const setCurrency = (currency) => {
+  return {
+    type: 'currencyFilter/setCurrency',
+    payload: currency,
+  };
 };

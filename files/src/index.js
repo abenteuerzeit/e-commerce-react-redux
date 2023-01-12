@@ -34,6 +34,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { App } from "./app/App.js";
+import "./index.css";
 
 // Import the store here.
 import { store } from "./app/store.js";
